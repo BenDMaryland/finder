@@ -12,10 +12,11 @@ function Retire() {
     useEffect(() => {
 
 
-        let nt = 12 * years
+        let nt = timesPerMonth* years
         let IntrestRate = 1 + (Interest / timesPerMonth)
+        console.log("intr rate", IntrestRate)
         let compounder = Math.pow(IntrestRate, nt)
-
+console.log(compounder)
 console.log("Results",compounder * initValue )
 
 
@@ -44,6 +45,7 @@ console.log("Results",compounder * initValue )
             <label> Intrest rate   </label><input value={Interest} onChange={(e) => setIInterest(e.target.value)}></input><br />
             <label> Years  </label ><input value={years} onChange={(e) => setyears(e.target.value)}></input><br />
             <label> Times per month   </label ><input value={timesPerMonth} onChange={(e) => settimesPerMonth(e.target.value)}></input><br />
+
         </div>
     )
 }
