@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Retire from './Retire'
 
 function BudgetCalc() {
     const [rent, setrent] = useState(1400)
@@ -10,11 +11,11 @@ function BudgetCalc() {
     const [ret401kMatch, setRet401kMatch] = useState(0)
 
     const [MoneyLeft, setMoneyLeft] = useState(0)
-    const [Groc, setGroc] = useState(200)
-    const [EatingOut, setEatingOut] = useState(200)
-    const [Trans, setTrans] = useState(100)
-    const [Other, setOther] = useState(100)
-const [SavingInvest, setSavingInvest] = useState(400)
+    const [Groc, setGroc] = useState(0)
+    const [EatingOut, setEatingOut] = useState(0)
+    const [Trans, setTrans] = useState(0)
+    const [Other, setOther] = useState(0)
+const [SavingInvest, setSavingInvest] = useState(0)
 
     const [SavingCash, setSavingCash] = useState(0)
 
@@ -62,7 +63,7 @@ setTakeHomeRate(.72-ret401k)
             <label>Savings Investment  </label>   <input type='number' placeholder='0' value={SavingInvest} onChange={(e) => setSavingInvest(e.target.value)}></input>          <br />
             <label>Savings cash   </label>   <input type='number' placeholder='0' value={SavingCash} onChange={(e) => setSavingCash(e.target.value)}></input>          <br />
 
-
+<Retire/>
         </div>
     )
 }
