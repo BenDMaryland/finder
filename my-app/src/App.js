@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import BudgetCalc from "./components/BudgetCalc";
 
 
 function App() {
@@ -14,6 +15,7 @@ useEffect(() => {
   return (
     <div className="App">
 <h1>Hello</h1>
+<BudgetCalc/>
     </div>
   );
 }
