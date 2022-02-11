@@ -26,7 +26,7 @@ const [SavingInvest, setSavingInvest] = useState(400)
 
 
     useEffect(() => {
-        setMoneyLeft(actualPay - Groc - EatingOut - Trans - Other-SavingCash-SavingInvest)
+        setMoneyLeft((actualPay - Groc - EatingOut - Trans - Other-SavingCash-SavingInvest).toFixed(2))
     }, [actualPay,Groc,EatingOut,Trans,Other,SavingCash,SavingInvest])
 
 useEffect(() => {
