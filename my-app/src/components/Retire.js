@@ -11,21 +11,24 @@ function Retire() {
 
     useEffect(() => {
 
-
-        let nt = timesPerMonth* years
+        console.log("Month cont ", MonthlyContr)
+        let nt = timesPerMonth * years
         let IntrestRate = 1 + (Interest / timesPerMonth)
-        console.log("intr rate", IntrestRate)
         let compounder = Math.pow(IntrestRate, nt)
-console.log(compounder)
-console.log("Results",compounder * initValue )
 
 
+        let FutureValue = MonthlyContr * ((compounder- 1) / (Interest / timesPerMonth))
 
-        setEndingValue(compounder * initValue )
+
+        let princCompoud = compounder * initValue
+
+       
+        setEndingValue(princCompoud + FutureValue)
 
 
     }, [years, Interest, MonthlyContr, initValue, timesPerMonth, initValue])
 
+    //Total = [ P(1+r/n)^(nt) ] + [ PMT × (((1 + r/n)^(nt) - 1) / (r/n)) ]
     return (
 
 
@@ -35,16 +38,16 @@ console.log("Results",compounder * initValue )
 
 
 
-///next step is to add equiation for monthly const
+
 
             <label> Goal retirement Savings amount</label> <input ></input><br />
             <label> Goal retirement age   </label><input></input><br />
             <br />
-            <label>Starting amount</label><input value={initValue} onChange={(e) => setinitValue(e.target.value)}></input><br />
-            <label> Monthly contributions   </label ><input value={MonthlyContr} onChange={(e) => setMonthlyContr(e.target.value)}></input><br />
-            <label> Intrest rate   </label><input value={Interest} onChange={(e) => setIInterest(e.target.value)}></input><br />
-            <label> Years  </label ><input value={years} onChange={(e) => setyears(e.target.value)}></input><br />
-            <label> Times per month   </label ><input value={timesPerMonth} onChange={(e) => settimesPerMonth(e.target.value)}></input><br />
+            <label>Starting amount</label><input type={"number"} value={initValue} onChange={(e) => setinitValue(parseInt(e.target.value))}></input><br />
+            <label> Monthly contributions   </label ><input  value={MonthlyContr} type={"number"} onChange={(e) => setMonthlyContr(parseInt(e.target.value))}></input><br />
+            <label> Intrest rate   </label><input type={"number"} value={Interest} onChange={(e) => setIInterest(parseInt(e.target.value))}></input><br />
+            <label> Years  </label ><input type={"number"} value={years} onChange={(e) => setyears(parseInt(e.target.value))}></input><br />
+            <label> Times per Year   </label ><input type={"number"} value={timesPerMonth} onChange={(e) => settimesPerMonth(parseInt(e.target.value))}></input><br />
 
         </div>
     )
