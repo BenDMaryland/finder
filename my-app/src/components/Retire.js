@@ -35,7 +35,7 @@ console.log("Results",compounder * initValue )
 
 
 
-
+///next step is to add equiation for monthly const
 
             <label> Goal retirement Savings amount</label> <input ></input><br />
             <label> Goal retirement age   </label><input></input><br />
