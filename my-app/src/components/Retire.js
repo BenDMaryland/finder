@@ -3,10 +3,10 @@ import React, { useState, useEffect } from 'react'
 function Retire() {
     const [initValue, setinitValue] = useState(70000)
     const [MonthlyContr, setMonthlyContr] = useState(500)
-    const [Interest, setIInterest] = useState(8)
+    const [Interest, setIInterest] = useState(.08)
     const [EndingValue, setEndingValue] = useState(0)
     const [years, setyears] = useState(3)
-    const [timesPerMonth, settimesPerMonth] = useState(1)
+    const [timesPerMonth, settimesPerMonth] = useState(12)
 
 
     useEffect(() => {
@@ -34,14 +34,14 @@ function Retire() {
 
         <div>
             <h1>Retirement calc.</h1>
-            <h2>Ending Value{EndingValue.toFixed(2)}</h2>
+            <h2>Ending Value: ${EndingValue.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h2>
 
 
 
 
 
             <label> Goal retirement Savings amount</label> <input ></input><br />
-            <label> Goal retirement age   </label><input></input><br />
+            <label> Goal dretirement age   </label><input></input><br />
             <br />
             <label>Starting amount</label><input type={"number"} value={initValue} onChange={(e) => setinitValue(parseInt(e.target.value))}></input><br />
             <label> Monthly contributions   </label ><input  value={MonthlyContr} type={"number"} onChange={(e) => setMonthlyContr(parseInt(e.target.value))}></input><br />
