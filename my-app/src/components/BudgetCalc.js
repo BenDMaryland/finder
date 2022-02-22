@@ -56,6 +56,9 @@ function BudgetCalc() {
             <Calcs className='calcs'>
                 <div>
                     <br />
+                    <p> take home{(income / 12) * .72}</p>
+                    <p>Money left: {MoneyLeft}</p>
+
                     <h2>Housing</h2>
                     <label>Monthly Rent</label>   <input type='number' placeholder='0' value={rent} onChange={(e) => setrent(e.target.value)}></input>          <br />
                     <h2>Food</h2>
@@ -69,11 +72,12 @@ function BudgetCalc() {
                     <label>401k rate </label> <input type='number' placeholder='0' value={ret401k} onChange={(e) => setRet401k(e.target.value)}></input>          <br />
                     <label>401k match </label> <input type='number' placeholder='0' value={ret401kMatch} onChange={(e) => setRet401kMatch(e.target.value)}></input>          <br />'
 
-                    <label>Savings Investment  </label>   <input type='number' placeholder='0' value={SavingInvest} onChange={(e) => setSavingInvest(e.target.value)}></input>          <br />
+                    <label>Savings Investment  </label>   <input type='number' placeholder='0' value={SavingInvest} onChange={(e) => setSavingInvest(parseInt(e.target.value))}></input>          <br />
+                    <h2>Savings Invest per month is   {((income * ret401k)/12) + ((income * ret401kMatch)/12) + (SavingInvest ) }</h2>
                     <label>Savings cash   </label>   <input type='number' placeholder='0' value={SavingCash} onChange={(e) => setSavingCash(e.target.value)}></input>          <br />
                 </div>
                 <div>
-                    <Retire initValue={initValue} setinitValue={setinitValue} goalRetireMoney={goalRetireMoney} goalRetireDate={goalRetireDate}/>
+                    <Retire income={income} initValue={initValue} setinitValue={setinitValue} goalRetireMoney={goalRetireMoney} goalRetireDate={goalRetireDate}/>
                 </div>
             </Calcs>
         </div>
