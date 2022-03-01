@@ -46,7 +46,7 @@ for(let i =0; i< (income/12 ); i++){
 
 
         <div>
-            <h1>Retirement calc.</h1>
+            <h1>Retirement dcalc.</h1>
             <h3> Goal retirement Savings amount ${goalRetireMoney.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3> <br />
 
 
