@@ -24,6 +24,8 @@ function BudgetCalc() {
     const [goalRetireMoney, setgoalRetireMoney] = useState(1000000)
     const [goalRetireDate, setgoalRetireDate] = useState(15)
 
+    const [ContrChanges, setContrChanges] = useState(false)
+
     const [initValue, setinitValue] = useState(70000)
 
     useEffect(() => {
@@ -45,16 +47,17 @@ function BudgetCalc() {
     return (
         <div>
 
-            <h2> Your  monthly income  is {income / 12}</h2>
+            {/* <h2> Your  monthly income  is {income / 12}</h2>
             <h2>A rough estimate of your monthly take home pay is {(income / 12) * .72}</h2>
             <h2> Your  monthly rent  is {rent}</h2>
             <h2>A rough estimate of your monthly take home pay after rent is  {actualPay}</h2>
             <h2>Savings per year: {(income * ret401k) + (income * ret401kMatch) + (SavingInvest * 12) + (SavingCash * 12)}</h2>
-            <h2>Money left for budgeting{MoneyLeft}</h2>
+            <h2>Money left for budgeting{MoneyLeft}</h2> */}
             <p>Goals: User should start by entering their income savings and goal retirement age/ and expected income increase and when </p>
             <UserInfoGrabber income={income} setincome={setincome} initValue={initValue} setinitValue={setinitValue} goalRetireDate={goalRetireDate} setgoalRetireDate={setgoalRetireDate} goalRetireMoney={goalRetireMoney} setgoalRetireMoney={setgoalRetireMoney} />
             <Calcs className='calcs'>
                 <div className='info'>
+                    <h1>Budget</h1>
                     <br />
                     <p> take home{(income / 12) * .72}</p>
                     <p>Money left: {MoneyLeft}</p>
@@ -77,7 +80,7 @@ function BudgetCalc() {
                     <label>Savings cash   </label>   <input type='number' placeholder='0' value={SavingCash} onChange={(e) => setSavingCash(e.target.value)}></input>          <br />
                 </div>
                 <div>
-                    <Retire income={income} initValue={initValue} setinitValue={setinitValue} goalRetireMoney={goalRetireMoney} goalRetireDate={goalRetireDate}/>
+                    <Retire ContrChanges={ContrChanges} setContrChanges={setContrChanges} income={income} initValue={initValue} setinitValue={setinitValue} goalRetireMoney={goalRetireMoney} goalRetireDate={goalRetireDate}/>
                 </div>
             </Calcs>
         </div>
@@ -94,7 +97,7 @@ padding-left:20px;
 
 .info{
  display:grid;
- label{
+ label,h1{
       text-align: center;
  }
  /* grid-template-columns: repeat(2, 1fr);  */

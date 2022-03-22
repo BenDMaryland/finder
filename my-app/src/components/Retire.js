@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react'
  import styled from 'styled-components'
-function Retire({ initValue, setinitValue, goalRetireDate, goalRetireMoney, income }) {
+function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRetireDate, goalRetireMoney, income }) {
 
     const [MonthlyContr, setMonthlyContr] = useState(500)
     const [Interest, setIInterest] = useState(.08)
     const [EndingValue, setEndingValue] = useState(0)
-    const [years, setyears] = useState(15)
+    const [years, setyears] = useState(1)
+    const [numOfChanges, setnumOfChanges] = useState(15)
     const [timesPerMonth, settimesPerMonth] = useState(300)
 const [suggestedSavingsAmount, setsuggestedSavingsAmount ] = useState()
 
+    console.log(ContrChanges)
     useEffect(() => {
 
 
@@ -61,6 +63,13 @@ for(let i =0; i< (income/12 ); i++){
             <br />
             {/* <label>Starting amount</label><input type={"number"} value={initValue} onChange={(e) => setinitValue(parseInt(e.target.value))}></input><br /> */}
             <label> Monthly contributions   </label ><input value={MonthlyContr} type={"number"} onChange={(e) => setMonthlyContr(parseInt(e.target.value))}></input><br />
+         
+            <button onClick={() => setContrChanges( !ContrChanges)}>Will your monthly contributions change?</button>
+            {ContrChanges? <></>: <>
+            <label> How many times</label>
+                <input onChange={(e) => setnumOfChanges(e.target.value)} type="number"></input>
+
+            </>}
             <label> Intrest rate   </label><input value={Interest} onChange={(e) => setIInterest(e.target.value)}></input><br />
             <label> Years  </label ><input type={"number"} value={years} onChange={(e) => setyears(parseInt(e.target.value))}></input><br />
             <label> Times per Year   </label ><input type={"number"} value={timesPerMonth} onChange={(e) => settimesPerMonth(parseInt(e.target.value))}></input><br />
