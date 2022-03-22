@@ -59,7 +59,10 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
         console.log("e", Number(e.target.value))
         setMonthlyContrArray([])
         for (let i = 0; i < Number(e.target.value); i++) {
-            setMonthlyContrArray(MonthlyContrArray => [...MonthlyContrArray, 1])
+            setMonthlyContrArray(MonthlyContrArray => [...MonthlyContrArray, {
+                year:1,
+                MonthlyContr:500
+            }])
         }
 
 
@@ -67,10 +70,12 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
 
     function monthlyContrHandler(i, e) {
        
-        setMonthlyContrArray(MonthlyContrArray => (MonthlyContrArray.map((year, index) => index === i ? year = Number(e.target.value) : year)))
+        setMonthlyContrArray(MonthlyContrArray => (MonthlyContrArray.map((year, index) => index === i ? 
+            year = { ...year, [e.target.name]: Number(e.target.value) }
+         : year)))
    
     }
-
+    // data => data = { ...data, [e.target.name]: e.target.value })
 
 
 
@@ -105,9 +110,12 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
 
                         return (
                             <div key={i}>
-                                <p>Year: {i}</p>
-                                <input onChange={(e) => monthlyContrHandler(i, e)}></input>
-
+                                <p>Section: {i+1}</p>
+                                <label>Number of years</label>
+                                <input  name='year' onChange={(e) => monthlyContrHandler(i, e)} value={year.year}></input>
+                                <br/>
+                                <label>Monthly Contribution</label>
+                                <input name='MonthlyContr' onChange={(e) => monthlyContrHandler(i, e)} value={year.MonthlyContr}></input>
                             </div>
                         )
                     })}
