@@ -64,9 +64,8 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
                 MonthlyContr:500
             }])
         }
-
-
     }
+
 
     function monthlyContrHandler(i, e) {
        
@@ -75,7 +74,14 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
          : year)))
    
     }
-    // data => data = { ...data, [e.target.name]: e.target.value })
+
+    function monthlyContrSubmitHandler(i, e) {
+
+        setMonthlyContrArray(MonthlyContrArray => (MonthlyContrArray.map((year, index) => index === i ?
+            year = { ...year, [e.target.name]: Number(e.target.value) }
+            : year)))
+
+    }
 
 
 
@@ -110,23 +116,28 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
 
                         return (
                             <div key={i}>
-                                <p>Section: {i+1}</p>
+                                <br />
+                                <label>Section: {i+1}</label>
+                                <br />
                                 <label>Number of years</label>
                                 <input  name='year' onChange={(e) => monthlyContrHandler(i, e)} value={year.year}></input>
                                 <br/>
                                 <label>Monthly Contribution</label>
                                 <input name='MonthlyContr' onChange={(e) => monthlyContrHandler(i, e)} value={year.MonthlyContr}></input>
+                                <br />
+                                <br />
                             </div>
                         )
                     })}
+
+                  
                     <br />
-                    <br />
-                    <br />
-                    <label> {numOfChanges}  </label ><input type={"number"} value={years} onChange={(e) => setyears(parseInt(e.target.value))}></input><br />
+             
                 </div>
+                <button >Submit</button>
             </>}
 
-
+            <label> Years  </label ><input type={"number"} value={years} onChange={(e) => setyears(parseInt(e.target.value))}></input><br />
             <label> Intrest rate   </label><input value={Interest} onChange={(e) => setIInterest(e.target.value)}></input><br />
 
             {/* {numOfChanges >= 1 ?
