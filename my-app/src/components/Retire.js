@@ -74,4 +74,11 @@ export default Retire
 const Style = styled.div `
 display: grid ;
 
+padding-left:20px;
+h1,h2{
+    text-align: center;
+}
+label{
+     text-align: center;
+}
 `

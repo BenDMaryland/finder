@@ -54,17 +54,17 @@ function BudgetCalc() {
             <p>Goals: User should start by entering their income savings and goal retirement age/ and expected income increase and when </p>
             <UserInfoGrabber income={income} setincome={setincome} initValue={initValue} setinitValue={setinitValue} goalRetireDate={goalRetireDate} setgoalRetireDate={setgoalRetireDate} goalRetireMoney={goalRetireMoney} setgoalRetireMoney={setgoalRetireMoney} />
             <Calcs className='calcs'>
-                <div>
+                <div className='info'>
                     <br />
                     <p> take home{(income / 12) * .72}</p>
                     <p>Money left: {MoneyLeft}</p>
 
-                    <h2>Housing</h2>
+                    
                     <label>Monthly Rent</label>   <input type='number' placeholder='0' value={rent} onChange={(e) => setrent(e.target.value)}></input>          <br />
-                    <h2>Food</h2>
+    
                     <label>Groceries</label>   <input type='number' placeholder='0' value={Groc} onChange={(e) => setGroc(e.target.value)}></input>          <br />
                     <label>Eating Out</label>   <input type='number' placeholder='0' value={EatingOut} onChange={(e) => setEatingOut(e.target.value)}></input>          <br />
-                    <h2>Miscellaneous</h2>
+
                     <label>Transportation </label>   <input type='number' placeholder='0' value={Trans} onChange={(e) => setTrans(e.target.value)}></input>          <br />
                     <label>other  </label>   <input type='number' placeholder='0' value={Other} onChange={(e) => setOther(e.target.value)}></input>          <br />
 
@@ -89,5 +89,15 @@ export default BudgetCalc
 const Calcs = styled.div`
  display:grid;
  grid-template-columns: repeat(2, 1fr); 
+padding-left:20px;
 
+
+.info{
+ display:grid;
+ label{
+      text-align: center;
+ }
+ /* grid-template-columns: repeat(2, 1fr);  */
+
+}
 `
