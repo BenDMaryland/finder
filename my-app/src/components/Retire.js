@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react'
- import styled from 'styled-components'
+import styled from 'styled-components'
 function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRetireDate, goalRetireMoney, income }) {
 
     const [MonthlyContr, setMonthlyContr] = useState(500)
+    const [MonthlyContrArray, setMonthlyContrArray] = useState([])
     const [Interest, setIInterest] = useState(.08)
     const [EndingValue, setEndingValue] = useState(0)
     const [years, setyears] = useState(1)
-    const [numOfChanges, setnumOfChanges] = useState(15)
+    const [numOfChanges, setnumOfChanges] = useState(1)
     const [timesPerMonth, settimesPerMonth] = useState(300)
-const [suggestedSavingsAmount, setsuggestedSavingsAmount ] = useState()
+    const [suggestedSavingsAmount, setsuggestedSavingsAmount] = useState()
 
-    console.log(ContrChanges)
+    console.log("array", MonthlyContrArray)
+    console.log("num of changes ", numOfChanges)
     useEffect(() => {
 
 
@@ -24,26 +26,41 @@ const [suggestedSavingsAmount, setsuggestedSavingsAmount ] = useState()
 
         let princCompoud = compounder * initValue
 
-     
+
         setEndingValue(princCompoud + FutureValue)
-// for loop for suggested retirement savings based on date and year and shit 
+        // for loop for suggested retirement savings based on date and year and shit 
 
         let FakeFutureValue
         let fakeEndingValue
 
-for(let i =0; i< (income/12 ); i++){
-     FakeFutureValue = i * ((compounder - 1) / (IntrestRate / timesPerMonth))
-    fakeEndingValue = princCompoud + FakeFutureValue
+        for (let i = 0; i < (income / 12); i++) {
+            FakeFutureValue = i * ((compounder - 1) / (IntrestRate / timesPerMonth))
+            fakeEndingValue = princCompoud + FakeFutureValue
 
-    if (fakeEndingValue >= goalRetireMoney) setsuggestedSavingsAmount(i)
-    if (fakeEndingValue >= goalRetireMoney) break 
-   
+            if (fakeEndingValue >= goalRetireMoney) setsuggestedSavingsAmount(i)
+            if (fakeEndingValue >= goalRetireMoney) break
 
-}
 
-    }, [years, Interest, MonthlyContr, initValue, timesPerMonth, initValue, goalRetireMoney, goalRetireDate,income])
+        }
+
+    }, [years, Interest, MonthlyContr, initValue, timesPerMonth, initValue, goalRetireMoney, goalRetireDate, income])
 
     //Total = [ P(1+r/n)^(nt) ] + [ PMT × (((1 + r/n)^(nt) - 1) / (r/n)) ]
+
+useEffect(() => {
+    setMonthlyContrArray([])
+    for (let i = 0; i < numOfChanges; i++) {
+         setMonthlyContrArray(MonthlyContrArray => [...MonthlyContrArray,1    ]    )  
+    }
+
+}, [numOfChanges])
+
+
+
+
+
+
+
     return (
 
 
@@ -54,7 +71,7 @@ for(let i =0; i< (income/12 ); i++){
 
             <p>Ending Value:  ${EndingValue.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}   of year: {Number(years) + Number(new Date().getFullYear())}  </p>
             <p>Money left :       ${(goalRetireMoney - EndingValue).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}   with {goalRetireDate - years}          Years left              </p>
-<p>Suggested savings to meet retierment money : {suggestedSavingsAmount}</p>
+            <p>Suggested savings to meet retierment money : {suggestedSavingsAmount}</p>
 
 
 
@@ -63,15 +80,34 @@ for(let i =0; i< (income/12 ); i++){
             <br />
             {/* <label>Starting amount</label><input type={"number"} value={initValue} onChange={(e) => setinitValue(parseInt(e.target.value))}></input><br /> */}
             <label> Monthly contributions   </label ><input value={MonthlyContr} type={"number"} onChange={(e) => setMonthlyContr(parseInt(e.target.value))}></input><br />
-         
-            <button onClick={() => setContrChanges( !ContrChanges)}>Will your monthly contributions change?</button>
-            {ContrChanges? <></>: <>
-            <label> How many times</label>
-                <input onChange={(e) => setnumOfChanges(e.target.value)} type="number"></input>
 
+            <button onClick={() => setContrChanges(!ContrChanges)}>Will your monthly contributions change?</button>
+            {ContrChanges ? <></> : <>
+                <label> How many times</label>
+                <input onChange={(e) => setnumOfChanges(Number(e.target.value))} type="number"></input>
             </>}
             <label> Intrest rate   </label><input value={Interest} onChange={(e) => setIInterest(e.target.value)}></input><br />
-            <label> Years  </label ><input type={"number"} value={years} onChange={(e) => setyears(parseInt(e.target.value))}></input><br />
+            {setnumOfChanges >= 1 ?
+                <> <label> Years  </label ><input type={"number"} value={years} onChange={(e) => setyears(parseInt(e.target.value))}></input><br /> </>
+                :
+
+
+
+
+                <div>
+
+
+
+                 { MonthlyContrArray.map(year=> {
+                  return   <p>{year}</p>
+                     })} 
+
+                    <label> {numOfChanges}  </label ><input type={"number"} value={years} onChange={(e) => setyears(parseInt(e.target.value))}></input><br />
+                </div>
+
+            }
+
+
             <label> Times per Year   </label ><input type={"number"} value={timesPerMonth} onChange={(e) => settimesPerMonth(parseInt(e.target.value))}></input><br />
 
         </Style>
@@ -80,7 +116,7 @@ for(let i =0; i< (income/12 ); i++){
 
 export default Retire
 
-const Style = styled.div `
+const Style = styled.div`
 display: grid ;
 
 padding-left:20px;
