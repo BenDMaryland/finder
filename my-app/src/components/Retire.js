@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-
+ import styled from 'styled-components'
 function Retire({ initValue, setinitValue, goalRetireDate, goalRetireMoney, income }) {
 
     const [MonthlyContr, setMonthlyContr] = useState(500)
@@ -45,7 +45,7 @@ for(let i =0; i< (income/12 ); i++){
     return (
 
 
-        <div>
+        <Style>
             <h1>Retirement calc.</h1>
             <h3> Goal retirement Savings amount ${goalRetireMoney.toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</h3> <br />
 
@@ -65,8 +65,13 @@ for(let i =0; i< (income/12 ); i++){
             <label> Years  </label ><input type={"number"} value={years} onChange={(e) => setyears(parseInt(e.target.value))}></input><br />
             <label> Times per Year   </label ><input type={"number"} value={timesPerMonth} onChange={(e) => settimesPerMonth(parseInt(e.target.value))}></input><br />
 
-        </div>
+        </Style>
     )
 }
 
 export default Retire
+
+const Style = styled.div `
+display: grid ;
+
+`
