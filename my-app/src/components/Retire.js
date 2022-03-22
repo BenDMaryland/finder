@@ -11,6 +11,7 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
     const [timesPerMonth, settimesPerMonth] = useState(300)
     const [suggestedSavingsAmount, setsuggestedSavingsAmount] = useState()
 
+    console.log("i ran outside ", MonthlyContrArray)
     console.log("array", MonthlyContrArray)
     console.log("num of changes ", numOfChanges)
     useEffect(() => {
@@ -47,15 +48,28 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
 
     //Total = [ P(1+r/n)^(nt) ] + [ PMT × (((1 + r/n)^(nt) - 1) / (r/n)) ]
 
-useEffect(() => {
-    setMonthlyContrArray([])
-    for (let i = 0; i < numOfChanges; i++) {
-         setMonthlyContrArray(MonthlyContrArray => [...MonthlyContrArray,1    ]    )  
+    // useEffect(() => {
+    //     setMonthlyContrArray([])
+    //     for (let i = 0; i < numOfChanges; i++) {
+    //         setMonthlyContrArray(MonthlyContrArray => [...MonthlyContrArray, 1])
+    //     }
+
+    // }, [numOfChanges])
+    function numOfChangesHandler(e) {
+        console.log("e", Number(e.target.value))
+        setMonthlyContrArray([])
+        for (let i = 0; i < Number(e.target.value); i++) {
+            setMonthlyContrArray(MonthlyContrArray => [...MonthlyContrArray, 1])
+        }
+
+
     }
 
-}, [numOfChanges])
-
-
+    function monthlyContrHandler(i, e) {
+       
+        setMonthlyContrArray(MonthlyContrArray => (MonthlyContrArray.map((year, index) => index === i ? year = Number(e.target.value) : year)))
+   
+    }
 
 
 
@@ -82,12 +96,32 @@ useEffect(() => {
             <label> Monthly contributions   </label ><input value={MonthlyContr} type={"number"} onChange={(e) => setMonthlyContr(parseInt(e.target.value))}></input><br />
 
             <button onClick={() => setContrChanges(!ContrChanges)}>Will your monthly contributions change?</button>
+
             {ContrChanges ? <></> : <>
                 <label> How many times</label>
-                <input onChange={(e) => setnumOfChanges(Number(e.target.value))} type="number"></input>
+                <input onChange={numOfChangesHandler} type="number"></input>
+                <div>
+                    {MonthlyContrArray.map((year, i) => {
+
+                        return (
+                            <div key={i}>
+                                <p>Year: {i}</p>
+                                <input onChange={(e) => monthlyContrHandler(i, e)}></input>
+
+                            </div>
+                        )
+                    })}
+                    <br />
+                    <br />
+                    <br />
+                    <label> {numOfChanges}  </label ><input type={"number"} value={years} onChange={(e) => setyears(parseInt(e.target.value))}></input><br />
+                </div>
             </>}
+
+
             <label> Intrest rate   </label><input value={Interest} onChange={(e) => setIInterest(e.target.value)}></input><br />
-            {setnumOfChanges >= 1 ?
+
+            {/* {numOfChanges >= 1 ?
                 <> <label> Years  </label ><input type={"number"} value={years} onChange={(e) => setyears(parseInt(e.target.value))}></input><br /> </>
                 :
 
@@ -98,14 +132,23 @@ useEffect(() => {
 
 
 
-                 { MonthlyContrArray.map(year=> {
-                  return   <p>{year}</p>
-                     })} 
+                    {MonthlyContrArray.map((year, i) => {
 
+                        return (
+                            <div key={i}>
+                                <p>Year: {i}</p>
+                                <input onChange={(e) => monthlyContrHandler(i, e)}></input>
+
+                            </div>
+                        )
+                    })}
+                    <br />
+                    <br />
+                    <br />
                     <label> {numOfChanges}  </label ><input type={"number"} value={years} onChange={(e) => setyears(parseInt(e.target.value))}></input><br />
                 </div>
 
-            }
+            } */}
 
 
             <label> Times per Year   </label ><input type={"number"} value={timesPerMonth} onChange={(e) => settimesPerMonth(parseInt(e.target.value))}></input><br />
