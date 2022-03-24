@@ -109,7 +109,7 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
             <button onClick={() => setContrChanges(!ContrChanges)}>Will your monthly contributions change?</button>
 
             {ContrChanges ? <></> : <>
-                <label> How many timews</label>
+                <label> How manwy timews</label>
                 <input onChange={numOfChangesHandler} type="number"></input>
                 <div>
                     {MonthlyContrArray.map((year, i) => {
