@@ -77,9 +77,10 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
 
     function monthlyContrSubmitHandler(i, e) {
 
-        setMonthlyContrArray(MonthlyContrArray => (MonthlyContrArray.map((year, index) => index === i ?
-            year = { ...year, [e.target.name]: Number(e.target.value) }
-            : year)))
+        for (let i = 0; i < MonthlyContrArray; i++) {
+        
+            
+        }
 
     }
 
@@ -134,7 +135,7 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
                     <br />
              
                 </div>
-                <button >Submit</button>
+                <button onClick={monthlyContrSubmitHandler}>Submit</button>
             </>}
 
             <label> Years  </label ><input type={"number"} value={years} onChange={(e) => setyears(parseInt(e.target.value))}></input><br />
