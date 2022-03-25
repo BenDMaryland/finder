@@ -60,70 +60,41 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
         setMonthlyContrArray([])
         for (let i = 0; i < Number(e.target.value); i++) {
             setMonthlyContrArray(MonthlyContrArray => [...MonthlyContrArray, {
-                year:1,
-                MonthlyContr:500
+                year: 1,
+                MonthlyContr: 500
             }])
         }
     }
 
 
     function monthlyContrHandler(i, e) {
-       
-        setMonthlyContrArray(MonthlyContrArray => (MonthlyContrArray.map((year, index) => index === i ? 
+
+        setMonthlyContrArray(MonthlyContrArray => (MonthlyContrArray.map((year, index) => index === i ?
             year = { ...year, [e.target.name]: Number(e.target.value) }
-         : year)))
-   
+            : year)))
+
     }
 
-    function monthlyContrSubmitHandler(i, e) {
+    function monthlyContrSubmitHandler() {
+        let tempVari = initValue
+        console.log(MonthlyContrArray)
+        for (let i = 0; i < MonthlyContrArray.length; i++) {
+            console.log(MonthlyContrArray[i])
+            let nt = timesPerMonth * MonthlyContrArray[i].year
+            let IntrestRate = 1 + (Interest / timesPerMonth)
+            let compounder = Math.pow(IntrestRate, nt)
+            let FutureValue = MonthlyContrArray[i].MonthlyContr * ((compounder - 1) / (IntrestRate / timesPerMonth))
+            let princCompoud = compounder * tempVari
 
-        console.log("Hello ", MonthlyContrArray.length)
-
-        // setMonthlyContrArray(MonthlyContrArray => (MonthlyContrArray.map((year, index) => index === i ?
-        //     year = { ...year, [e.target.name]: Number(e.target.value) }
-        //     : year)))
-
-        let nt = timesPerMonth * years
-        let IntrestRate = 1 + (Interest / timesPerMonth)
-        let compounder = Math.pow(IntrestRate, nt)
-        let FutureValue = MonthlyContr * ((compounder - 1) / (IntrestRate / timesPerMonth))
-        let princCompoud = compounder * initValue
-        setEndingValue(princCompoud + FutureValue)
-        // for loop for suggested retirement savings based on date and year and shit 
-        let FakeFutureValue
-        let fakeEndingValue
-
-
-
-        for (let i = 0; i < (income / 12); i++) {
-            FakeFutureValue = i * ((compounder - 1) / (IntrestRate / timesPerMonth))
-            fakeEndingValue = princCompoud + FakeFutureValue
-            if (fakeEndingValue >= goalRetireMoney) setsuggestedSavingsAmount(i)
-            if (fakeEndingValue >= goalRetireMoney) break
-
-
-        }
-
-
-
-        for (let e = 0; e < MonthlyContrArray.length; e++) {
-            console.log("It is run ", i)
-
-
-            for (let i = 0; i < (income / 12); i++) {
-                FakeFutureValue = i * ((compounder - 1) / (IntrestRate / timesPerMonth))
-                fakeEndingValue = princCompoud + FakeFutureValue
-                if (fakeEndingValue >= goalRetireMoney) setsuggestedSavingsAmount(i)
-                if (fakeEndingValue >= goalRetireMoney) break
-
-
+            setEndingValue(princCompoud + FutureValue)
+            tempVari = princCompoud + FutureValue
+            console.log(princCompoud + FutureValue)
+    
             }
 
 
-
-
-
-        }
+    
+        
 
     }
 
@@ -161,11 +132,11 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
                         return (
                             <div key={i}>
                                 <br />
-                                <label>Section: {i+1}</label>
+                                <label>Section: {i + 1}</label>
                                 <br />
                                 <label>Number of years</label>
-                                <input  name='year' onChange={(e) => monthlyContrHandler(i, e)} value={year.year}></input>
-                                <br/>
+                                <input name='year' onChange={(e) => monthlyContrHandler(i, e)} value={year.year}></input>
+                                <br />
                                 <label>Monthly Contribution</label>
                                 <input name='MonthlyContr' onChange={(e) => monthlyContrHandler(i, e)} value={year.MonthlyContr}></input>
                                 <br />
@@ -174,9 +145,9 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
                         )
                     })}
 
-                  
+
                     <br />
-             
+
                 </div>
                 <button onClick={monthlyContrSubmitHandler}>Submit</button>
             </>}
