@@ -11,9 +11,9 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
     const [timesPerMonth, settimesPerMonth] = useState(300)
     const [suggestedSavingsAmount, setsuggestedSavingsAmount] = useState()
 
-    console.log("i ran outside ", MonthlyContrArray)
-    console.log("array", MonthlyContrArray)
-    console.log("num of changes ", numOfChanges)
+    // console.log("i ran outside ", MonthlyContrArray)
+    // console.log("array", MonthlyContrArray)
+    // console.log("num of changes ", numOfChanges)
     useEffect(() => {
 
 
@@ -77,9 +77,52 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
 
     function monthlyContrSubmitHandler(i, e) {
 
-        for (let i = 0; i < MonthlyContrArray; i++) {
-        
-            
+        console.log("Hello ", MonthlyContrArray.length)
+
+        // setMonthlyContrArray(MonthlyContrArray => (MonthlyContrArray.map((year, index) => index === i ?
+        //     year = { ...year, [e.target.name]: Number(e.target.value) }
+        //     : year)))
+
+        let nt = timesPerMonth * years
+        let IntrestRate = 1 + (Interest / timesPerMonth)
+        let compounder = Math.pow(IntrestRate, nt)
+        let FutureValue = MonthlyContr * ((compounder - 1) / (IntrestRate / timesPerMonth))
+        let princCompoud = compounder * initValue
+        setEndingValue(princCompoud + FutureValue)
+        // for loop for suggested retirement savings based on date and year and shit 
+        let FakeFutureValue
+        let fakeEndingValue
+
+
+
+        for (let i = 0; i < (income / 12); i++) {
+            FakeFutureValue = i * ((compounder - 1) / (IntrestRate / timesPerMonth))
+            fakeEndingValue = princCompoud + FakeFutureValue
+            if (fakeEndingValue >= goalRetireMoney) setsuggestedSavingsAmount(i)
+            if (fakeEndingValue >= goalRetireMoney) break
+
+
+        }
+
+
+
+        for (let e = 0; e < MonthlyContrArray.length; e++) {
+            console.log("It is run ", i)
+
+
+            for (let i = 0; i < (income / 12); i++) {
+                FakeFutureValue = i * ((compounder - 1) / (IntrestRate / timesPerMonth))
+                fakeEndingValue = princCompoud + FakeFutureValue
+                if (fakeEndingValue >= goalRetireMoney) setsuggestedSavingsAmount(i)
+                if (fakeEndingValue >= goalRetireMoney) break
+
+
+            }
+
+
+
+
+
         }
 
     }
@@ -110,7 +153,7 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
             <button onClick={() => setContrChanges(!ContrChanges)}>Will your monthly contributions change?</button>
 
             {ContrChanges ? <></> : <>
-                <label> How manwy timews</label>
+                <label> How many times</label>
                 <input onChange={numOfChangesHandler} type="number"></input>
                 <div>
                     {MonthlyContrArray.map((year, i) => {
