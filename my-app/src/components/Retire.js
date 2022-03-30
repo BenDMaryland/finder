@@ -30,7 +30,7 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
 
         setEndingValue(princCompoud + FutureValue)
         // for loop for suggested retirement savings based on date and year and shit 
-
+// Loop works 
         let FakeFutureValue
         let fakeEndingValue
 
