@@ -77,15 +77,17 @@ function Retire({ ContrChanges, setContrChanges, initValue, setinitValue, goalRe
 
     function monthlyContrSubmitHandler() {
         let tempVari = initValue
-        console.log(MonthlyContrArray)
+   //     console.log(MonthlyContrArray)
         for (let i = 0; i < MonthlyContrArray.length; i++) {
-            console.log(MonthlyContrArray[i])
+          console.log(MonthlyContrArray[i])
             let nt = timesPerMonth * MonthlyContrArray[i].year
             let IntrestRate = 1 + (Interest / timesPerMonth)
+            console.log("rate is ", IntrestRate)
             let compounder = Math.pow(IntrestRate, nt)
+          
             let FutureValue = MonthlyContrArray[i].MonthlyContr * ((compounder - 1) / (IntrestRate / timesPerMonth))
             let princCompoud = compounder * tempVari
-
+console.log(FutureValue,princCompoud)
             setEndingValue(princCompoud + FutureValue)
             tempVari = princCompoud + FutureValue
             console.log(princCompoud + FutureValue)
